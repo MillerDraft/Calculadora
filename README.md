@@ -6,3 +6,7 @@ Unnecessary button decimal eliminated from RomanCalculator class.
 Unnecessay method setFont eliminated.
 Each calculator has a different font.
 
+### Next step
+- In ModernCal, separate the logic to do the calculations into another class.
+The goal is that ModernCal's responsibility is to handle user interaction, 
+while the new class will handle the calculation's logic.
