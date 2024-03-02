@@ -11,13 +11,11 @@ public abstract class Calculator implements ActionListener {
     protected JButton addButton, subButton, mulButton, divButton;
     protected JButton delButton, equButton, clrButton, squButton;
     protected JPanel panel;
-    protected double num1 = 0, num2 = 0, result = 0;
-    protected char operator;
     protected Dimension screenSize;
     protected int screenWidth;
     protected int screenHeight;
 
-    protected Font myFont = new Font("Arial", Font.ITALIC, 20);
+    protected Font myFont = new Font("Times new roman", Font.PLAIN, 20);
 
     public Calculator() {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();

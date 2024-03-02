@@ -3,10 +3,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class ModernCal extends Calculator{
-    private JButton decButton, sRootButton, percentButton, negButton;
-    private Font font = new Font("Century Gothic", Font.ITALIC, 20);
+    private BackEnd logic;
+
+    public JButton decButton, sRootButton, percentButton, negButton;
+    private Font font = new Font("Arial", Font.ITALIC, 20);
     public ModernCal() {
         super();
+        logic = new BackEnd();
     }
 
     @Override
@@ -74,17 +77,18 @@ public class ModernCal extends Calculator{
 
         // Function buttons
         addButton = new JButton("+");
-        subButton = new JButton("–");
+        subButton = new JButton("-");
         mulButton = new JButton("*");
-        divButton = new JButton("÷");
+        divButton = new JButton("÷"); // Alt + 246
         equButton = new JButton("=");
-        decButton = new JButton(".");
+
         negButton = new JButton("+/-");
-        delButton = new JButton("←");
+        delButton = new JButton("←"); //  alt 27
         clrButton = new JButton("C");
-        squButton = new JButton("×²");
-        sRootButton = new JButton("²√×");
+        squButton = new JButton("×²"); // Alt 0215 + Alt 0178
+        sRootButton = new JButton("²√×"); // Alt 0178 + Alt 251 + Atl 0215
         percentButton = new JButton("%");
+        decButton = new JButton(".");
 
         // Adding buttons to Array
         functionButton[0] = addButton;
@@ -115,108 +119,15 @@ public class ModernCal extends Calculator{
         for (int i = 0; i < 10; i++) {
             numberButton[i] = new JButton(String.valueOf(i));
             numberButton[i].addActionListener(this);
-            numberButton[i].setFont(myFont);
+            numberButton[i].setFont(font);
             numberButton[i].setFocusable(false);
         }
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e){
+        logic.handleModernOperations(e.getSource(), textField);
 
-        Object button = e.getSource();
-        for (int i = 0; i < 10; i++){
-            if (button == numberButton[i]){
-                textField.setText(textField.getText().concat(String.valueOf(i)));
-            }
-        }
-        if (button == decButton){
-            if (textField.getText().isEmpty()){
-                textField.setText("0.");
-            }
-            if (!textField.getText().contains(".")){
-                textField.setText(textField.getText().concat("."));
-            }
-
-        }
-        else if (button == addButton){
-            num1 = Double.parseDouble(textField.getText());
-            operator = '+';
-            textField.setText("");
-        }
-        else if (button == subButton){
-            num1 = Double.parseDouble(textField.getText());
-            operator = '-';
-            textField.setText("");
-        }
-        else if (button == mulButton){
-            num1 = Double.parseDouble(textField.getText());
-            operator = '*';
-            textField.setText("");
-        }
-        else if (button == divButton){
-            num1 = Double.parseDouble(textField.getText());
-            operator = '/';
-            textField.setText("");
-        }
-        else if (button == equButton){
-            num2 = Double.parseDouble(textField.getText());
-            switch (operator){
-                case '+':
-                    result = num1 + num2;
-                    break;
-                case '-':
-                    result = num1 - num2;
-                    break;
-                case '*':
-                    result = num1 * num2;
-                    break;
-                case '/':
-                    if (num2 != 0){
-                        result = num1 / num2;
-                        break;
-                    }
-                    else{
-                        textField.setText("Error Zero division");
-                        break;
-                    }
-            }
-            num1 = result;
-            int temp = (int)Math.floor(result);
-            if (result == Math.floor(result)){
-                textField.setText(String.valueOf(temp));
-            }
-            else {
-                textField.setText(String.valueOf(result));
-            }
-
-        }
-        else if (button == clrButton){
-            textField.setText("");
-            result = 0;
-            num1 = 0;
-            num2 = 0;
-        }
-        else if (button == delButton){
-            String str = textField.getText();
-            textField.setText(str.substring(0, str.length() - 1));
-        }
-        else if (button == negButton){
-            double temp = Double.parseDouble(textField.getText());
-            temp *= -1;
-            textField.setText(String.valueOf(temp));
-        }
-        else if (button == squButton){
-            num1 = Double.parseDouble(textField.getText());
-            textField.setText(String.valueOf(num1 * num1));
-        }
-        else if (button == sRootButton){
-            num1 = Double.parseDouble(textField.getText());
-            textField.setText(String.valueOf(Math.sqrt(num1)));
-        }
-        else if (button == percentButton){
-            num1 = Double.parseDouble(textField.getText());
-            textField.setText(String.valueOf(num1 / 100));
-        }
     }
 
 }
