@@ -144,7 +144,8 @@ public class RomanCalculator extends Calculator{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        logic.handleRomanOperations(e.getSource(), textField);
+        String str = e.getActionCommand();
+        logic.handleRomanOperations(str, textField);
     }
 }
 

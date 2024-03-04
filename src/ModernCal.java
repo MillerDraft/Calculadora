@@ -126,7 +126,8 @@ public class ModernCal extends Calculator{
 
     @Override
     public void actionPerformed(ActionEvent e){
-        logic.handleModernOperations(e.getSource(), textField);
+        String str = e.getActionCommand();
+        logic.handleModernOperations(str, textField);
 
     }
 
