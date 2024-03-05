@@ -7,6 +7,7 @@ public class BackEnd{
     private double num2 = 0;
     private double result = 0;
     private char operation = ' ';
+    protected String showedText = "";
     private static TreeMap<Integer, String> numTreeMap; // for implement method convert Int to Roman #
     private static HashMap<String, Integer> keyMap; // for implement method convert Roman to Int
     public BackEnd(){
@@ -43,21 +44,22 @@ public class BackEnd{
     }
 
     // ModernCal logic
-    public void handleModernOperations(String text, JTextField textField){
+    public String handleModernOperations(String text_in, String text_out){
+        showedText = text_out;
         
 
-        if (Character.isDigit(text.charAt(0))){
-            textField.setText(textField.getText().concat(text));
+        if (Character.isDigit(text_in.charAt(0))){
+            showedText = showedText.concat(text_in);
         }
 
         else {
-            switch (text){
+            switch (text_in){
                 case ".":
-                    if (textField.getText().isEmpty()){
-                        textField.setText("0.");
+                    if (showedText.isEmpty()){
+                        showedText = showedText.concat("0.");
                     }
-                    else if (!textField.getText().contains(".")){
-                        textField.setText(textField.getText().concat("."));
+                    else if (showedText.contains(".")){
+                        showedText = showedText.concat(".");
                     }
                     break;
 
@@ -65,13 +67,13 @@ public class BackEnd{
                 case "-":
                 case "*":
                 case "÷":
-                    num1 = Double.parseDouble(textField.getText());
-                    operation = text.charAt(0);
-                    textField.setText("");
+                    num1 = Double.parseDouble(showedText);
+                    operation = text_in.charAt(0);
+                    showedText = showedText = "";
                     break;
 
                 case "=":
-                    num2 = Double.parseDouble(textField.getText());
+                    num2 = Double.parseDouble(showedText);
 
                     switch (operation){
                         case '+':
@@ -88,7 +90,7 @@ public class BackEnd{
                                 result = num1 / num2;
                             }
                             else {
-                                textField.setText("Zero division error. You can't divide by 0");
+                                showedText = "Zero division error. You can't divide by 0";
                             }
                             break;
                     }
@@ -96,10 +98,10 @@ public class BackEnd{
                     // if result is a round number remove final zero, if not show it as double
                     int temp = (int) Math.floor(result);
                     if (result == Math.floor(result)){
-                        textField.setText(String.valueOf(temp));
+                        showedText = String.valueOf(temp);
                     }
                     else {
-                        textField.setText(String.valueOf(result));
+                        showedText = String.valueOf(result);
                     }
                     break;
 
@@ -107,61 +109,64 @@ public class BackEnd{
                     num1 = 0;
                     num2 = 0;
                     result = 0;
-                    textField.setText("");
+                    showedText = "";
                     break;
 
                 case "←":
-                    String str = textField.getText();
-                    textField.setText(str.substring(0, str.length() -1));
+                    showedText = (showedText.substring(0, showedText.length() -1));
                     break;
 
                 case "%":
-                    num1 = Double.parseDouble(textField.getText());
-                    textField.setText(String.valueOf(num1 / 100));
+                    num1 = Double.parseDouble(showedText);
+                    showedText = String.valueOf(num1 / 100);
                     break;
 
                 case "²√×":
-                    num1 = Double.parseDouble(textField.getText());
-                    textField.setText(String.valueOf(Math.sqrt(num1)));
+                    num1 = Double.parseDouble(text_out);
+                    showedText = String.valueOf(Math.sqrt(num1));
                     break;
 
                 case "×²":
-                    num1 = Double.parseDouble(textField.getText());
-                    textField.setText(String.valueOf(num1 * num1));
+                    num1 = Double.parseDouble(showedText);
+                    showedText = String.valueOf(num1 * num1);
                     break;
 
                 case "+/-":
-                    num1 = Double.parseDouble(textField.getText());
-                    textField.setText(String.valueOf(num1 * -1));
+                    num1 = Double.parseDouble(showedText);
+                    showedText = String.valueOf(num1 * -1);
+                    break;
             }
         }
+        return showedText;
     }
 
     // RomanCalculator logic
-    public void handleRomanOperations(String text, JTextField textField){
-        if (Character.isUpperCase(text.charAt(0))){
-            textField.setText(textField.getText().concat(text));
+    public String handleRomanOperations(String text_in, String text_out){
+        String showedText = text_out;
+
+        if (Character.isUpperCase(text_in.charAt(0))){
+            showedText = showedText.concat(text_in);
         }
 
         else {
-            switch (text){
+            switch (text_in){
                 case "+":
                 case "-":
                 case "÷":
                 case "*":
-                    num1 =  convertRomanToInt(textField.getText());
+                    num1 =  convertRomanToInt(showedText);
                     if (num1 <= 0 || num1 > 4000){
-                        textField.setText("Wrong Roman numeral");
+                        showedText = "Wrong Roman numeral";
                         break;
                     }
-                    textField.setText("");
-                    operation = text.charAt(0);
+                    showedText = "";
+                    operation = text_in.charAt(0);
 
                     break;
                 case "=":
-                    num2 = convertRomanToInt(textField.getText());
+                    num2 = convertRomanToInt(showedText);
                     if (num2 <= 0 || num2 > 4000){
-                        textField.setText("Wrong Roman numeral");
+                        showedText = "Wrong Roman numeral";
                         break;
                     }
                     switch (operation){
@@ -182,34 +187,35 @@ public class BackEnd{
                                 result = Math.floor(num1 / num2);
                             }
                             else {
-                                textField.setText("Zero division error");
+                                showedText = "Zero division error";
                             }
                             break;
                     }
                     num1 = result;
                     int temp = Integer.valueOf((int) result);
-                    textField.setText(convertIntToRoman(temp));
+                    showedText = convertIntToRoman(temp);
                     break;
 
                 case "×²":
-                    num1 = convertRomanToInt(textField.getText());
+                    num1 = convertRomanToInt(showedText);
                     int n = (int) ((int) num1 * num1);
-                    textField.setText(convertIntToRoman(n));
+                    showedText = convertIntToRoman(n);
                     break;
 
                 case "←":
-                    String str = textField.getText();
-                    textField.setText(str.substring(0, str.length() -1));
+                    String str = showedText;
+                    showedText = str.substring(0, str.length() -1);
                     break;
 
                 case "#":
                     num1 = 0;
                     num2 = 0;
                     result = 0;
-                    textField.setText("");
+                    showedText = "";
                     break;
             }
         }
+        return showedText;
     }
 
     // Method to convert Int to Roman #

@@ -48,6 +48,7 @@ public abstract class Calculator implements ActionListener {
         textField.setBounds(50, 25, 300, 50);
         textField.setFont(myFont);
         textField.setEditable(false);
+        textField.repaint();
     }
     // Panel method
     public void setPanel() {}
