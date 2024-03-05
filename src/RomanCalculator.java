@@ -146,6 +146,7 @@ public class RomanCalculator extends Calculator{
     public void actionPerformed(ActionEvent e) {
         String buttonText = e.getActionCommand();
         String screenText = textField.getText();
+
         // call to a method that perform the arithmetic operations
         textField.setText(logic.handleRomanOperations(buttonText, screenText));
     }

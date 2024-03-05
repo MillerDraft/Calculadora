@@ -128,6 +128,7 @@ public class ModernCal extends Calculator{
     public void actionPerformed(ActionEvent e){
         String buttonText = e.getActionCommand();
         String screenText = textField.getText();
+
         // call to a method that perform the arithmetic operations
         textField.setText(logic.handleModernOperations(buttonText, screenText));
 

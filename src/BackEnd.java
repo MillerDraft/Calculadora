@@ -7,7 +7,7 @@ public class BackEnd{
     private double num2 = 0;
     private double result = 0;
     private char operation = ' ';
-    protected String showedText = "";
+    protected String showText = ""; 
     private static TreeMap<Integer, String> numTreeMap; // for implement method convert Int to Roman #
     private static HashMap<String, Integer> keyMap; // for implement method convert Roman to Int
     public BackEnd(){
@@ -44,22 +44,20 @@ public class BackEnd{
     }
 
     // ModernCal logic
-    public String handleModernOperations(String text_in, String text_out){
-        showedText = text_out;
-        
+    public String handleModernOperations(String text1, String text2){
 
-        if (Character.isDigit(text_in.charAt(0))){
-            showedText = showedText.concat(text_in);
+        if (Character.isDigit(text1.charAt(0))){
+            showText = text2.concat(text1);
         }
 
         else {
-            switch (text_in){
+            switch (text1){
                 case ".":
-                    if (showedText.isEmpty()){
-                        showedText = showedText.concat("0.");
+                    if (text2.isEmpty()){
+                        showText = text2.concat("0.");
                     }
-                    else if (showedText.contains(".")){
-                        showedText = showedText.concat(".");
+                    else if (text2.contains(".")){
+                        showText = text2.concat(".");
                     }
                     break;
 
@@ -67,13 +65,13 @@ public class BackEnd{
                 case "-":
                 case "*":
                 case "÷":
-                    num1 = Double.parseDouble(showedText);
-                    operation = text_in.charAt(0);
-                    showedText = showedText = "";
+                    num1 = Double.parseDouble(text2);
+                    operation = text1.charAt(0);
+                    showText = "";
                     break;
 
                 case "=":
-                    num2 = Double.parseDouble(showedText);
+                    num2 = Double.parseDouble(text2);
 
                     switch (operation){
                         case '+':
@@ -90,7 +88,7 @@ public class BackEnd{
                                 result = num1 / num2;
                             }
                             else {
-                                showedText = "Zero division error. You can't divide by 0";
+                                showText = "Zero division error. You can't divide by 0";
                             }
                             break;
                     }
@@ -98,10 +96,10 @@ public class BackEnd{
                     // if result is a round number remove final zero, if not show it as double
                     int temp = (int) Math.floor(result);
                     if (result == Math.floor(result)){
-                        showedText = String.valueOf(temp);
+                        showText = String.valueOf(temp);
                     }
                     else {
-                        showedText = String.valueOf(result);
+                        showText = String.valueOf(result);
                     }
                     break;
 
@@ -109,64 +107,63 @@ public class BackEnd{
                     num1 = 0;
                     num2 = 0;
                     result = 0;
-                    showedText = "";
+                    showText = "";
                     break;
 
                 case "←":
-                    showedText = (showedText.substring(0, showedText.length() -1));
+                    showText = (text2.substring(0, text2.length() -1));
                     break;
 
                 case "%":
-                    num1 = Double.parseDouble(showedText);
-                    showedText = String.valueOf(num1 / 100);
+                    num1 = Double.parseDouble(text2);
+                    showText = String.valueOf(num1 / 100);
                     break;
 
                 case "²√×":
-                    num1 = Double.parseDouble(text_out);
-                    showedText = String.valueOf(Math.sqrt(num1));
+                    num1 = Double.parseDouble(text2);
+                    showText = String.valueOf(Math.sqrt(num1));
                     break;
 
                 case "×²":
-                    num1 = Double.parseDouble(showedText);
-                    showedText = String.valueOf(num1 * num1);
+                    num1 = Double.parseDouble(text2);
+                    showText = String.valueOf(num1 * num1);
                     break;
 
                 case "+/-":
-                    num1 = Double.parseDouble(showedText);
-                    showedText = String.valueOf(num1 * -1);
+                    num1 = Double.parseDouble(text2);
+                    showText = String.valueOf(num1 * -1);
                     break;
             }
         }
-        return showedText;
+        return showText;
     }
 
     // RomanCalculator logic
-    public String handleRomanOperations(String text_in, String text_out){
-        String showedText = text_out;
+    public String handleRomanOperations(String text1, String text2){
 
-        if (Character.isUpperCase(text_in.charAt(0))){
-            showedText = showedText.concat(text_in);
+        if (Character.isUpperCase(text1.charAt(0))){
+            showText = text2.concat(text1);
         }
 
         else {
-            switch (text_in){
+            switch (text1){
                 case "+":
                 case "-":
                 case "÷":
                 case "*":
-                    num1 =  convertRomanToInt(showedText);
+                    num1 =  convertRomanToInt(text2);
                     if (num1 <= 0 || num1 > 4000){
-                        showedText = "Wrong Roman numeral";
+                        showText = "Wrong Roman numeral";
                         break;
                     }
-                    showedText = "";
-                    operation = text_in.charAt(0);
+                    showText = "";
+                    operation = text1.charAt(0);
 
                     break;
                 case "=":
-                    num2 = convertRomanToInt(showedText);
+                    num2 = convertRomanToInt(text2);
                     if (num2 <= 0 || num2 > 4000){
-                        showedText = "Wrong Roman numeral";
+                        showText = "Wrong Roman numeral";
                         break;
                     }
                     switch (operation){
@@ -187,35 +184,34 @@ public class BackEnd{
                                 result = Math.floor(num1 / num2);
                             }
                             else {
-                                showedText = "Zero division error";
+                                showText = "Zero division error";
                             }
                             break;
                     }
                     num1 = result;
                     int temp = Integer.valueOf((int) result);
-                    showedText = convertIntToRoman(temp);
+                    showText = convertIntToRoman(temp);
                     break;
 
                 case "×²":
-                    num1 = convertRomanToInt(showedText);
+                    num1 = convertRomanToInt(text2);
                     int n = (int) ((int) num1 * num1);
-                    showedText = convertIntToRoman(n);
+                    showText = convertIntToRoman(n);
                     break;
 
                 case "←":
-                    String str = showedText;
-                    showedText = str.substring(0, str.length() -1);
+                    showText = text2.substring(0, text2.length() -1);
                     break;
 
                 case "#":
                     num1 = 0;
                     num2 = 0;
                     result = 0;
-                    showedText = "";
+                    showText = "";
                     break;
             }
         }
-        return showedText;
+        return showText;
     }
 
     // Method to convert Int to Roman #
@@ -236,19 +232,19 @@ public class BackEnd{
 
     // Method to convert Roman # to Int
     private int convertRomanToInt(String str){
-        int result = 0;
+        int res = 0;
         int prev = 0;
         for (int i = str.length() -1; i >= 0; i--){
             String currentSymbol = String.valueOf(str.charAt(i)); // Convert char to String
             int curr = keyMap.get(currentSymbol); // Use the String as key to get the value from keyMap
             if (curr < prev){
-                result -= curr;
+                res -= curr;
             }
             else{
-                result += curr;
+                res += curr;
             }
             prev = curr;
         }
-        return result;
+        return res;
     }
 }
