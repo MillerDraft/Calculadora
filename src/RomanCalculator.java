@@ -1,17 +1,23 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 
 public class RomanCalculator extends Calculator{
     private JButton b1, b2, b3, b4, b5, b6, b7, b8;
     private JButton b9, b10, b11, b12, b13, b14;
+
     private BackEnd logic;
+    private Conversor convert;
 
     //Constructor
-    public RomanCalculator() {
+    public RomanCalculator(){
         super();
         logic = new BackEnd();
+        convert = new Conversor();
+
     }
 
     @Override
@@ -66,7 +72,7 @@ public class RomanCalculator extends Calculator{
         super.addComponentsToFrame();
     }
     // Override Buttons method to create buttons with Roman #, and eliminate
-    // some of the button of the parent class that Roman didn't use in their math
+    // some of the button of the parent class that Roman didn"t use in their math
     @Override
     public void setButtons() {
         super.setButtons();
@@ -76,7 +82,7 @@ public class RomanCalculator extends Calculator{
         addButton = new JButton("+");
         subButton = new JButton("-");
         mulButton = new JButton("*");
-        divButton = new JButton("÷");
+        divButton = new JButton("/");
         equButton = new JButton("=");
         delButton = new JButton("←");
         clrButton = new JButton("#");
@@ -144,12 +150,77 @@ public class RomanCalculator extends Calculator{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String buttonText = e.getActionCommand();
-        String screenText = textField.getText();
+        Object button = e.getSource();
+        String text = e.getActionCommand();
 
-        // call to a method that perform the arithmetic operations
-        textField.setText(logic.handleRomanOperations(buttonText, screenText));
+        if (Character.isUpperCase(text.charAt(0))){
+            textField.setText(textField.getText().concat(text));
+        }
+
+        if (button == addButton){
+            operator = "+";
+            num1 =  convert.convertRomanToInt(textField.getText());
+
+            textField.setText("");
+        }
+
+        else if (button == subButton){
+            operator = "-";
+            num1 =  convert.convertRomanToInt(textField.getText());
+
+            textField.setText("");
+        }
+
+        else if (button == mulButton){
+            operator = "*";
+            num1 =  convert.convertRomanToInt(textField.getText());
+
+            textField.setText("");
+        }
+
+        else if (button == divButton){
+            operator = "/";
+            num1 =  convert.convertRomanToInt(textField.getText());
+
+            textField.setText("");
+        }
+
+        else if (button == equButton){
+            num2 = convert.convertRomanToInt(textField.getText());
+
+            result = logic.handleOperation(operator,num1, num2);
+
+            num1 = result;
+
+            String newRoman = convert.convertIntToRoman((int) result);
+
+            textField.setText(newRoman);
+        }
+
+        else if (button == squButton){
+            num1 = convert.convertRomanToInt(textField.getText());
+
+            num1 *= num1;
+
+            String str = convert.convertIntToRoman((int) num1);
+
+            textField.setText(str);
+        }
+
+        else if (button == clrButton){
+            num1 = 0;
+            num2 = 0;
+            result = 0;
+            textField.setText("");
+        }
+
+        else if (button == delButton){
+            String s = textField.getText();
+            textField.setText(s.substring(0, s.length() - 1));
+        }
+
     }
+
 }
 
 

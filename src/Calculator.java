@@ -14,10 +14,17 @@ public abstract class Calculator implements ActionListener {
     protected Dimension screenSize;
     protected int screenWidth;
     protected int screenHeight;
+    protected double num1, num2, result;
+    protected String operator;
 
     protected Font myFont = new Font("Times new roman", Font.PLAIN, 20);
 
     public Calculator() {
+        num1 = 0;
+        num2 = 0;
+        result = 0;
+        operator = "";
+
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         screenWidth = screenSize.width;
         screenHeight = screenSize.height;
