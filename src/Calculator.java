@@ -74,5 +74,4 @@ public abstract class Calculator implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {}
 
-
 }

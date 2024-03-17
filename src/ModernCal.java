@@ -20,7 +20,7 @@ public class ModernCal extends Calculator{
         frame.setTitle("Modern Calculator");
 
         // Set location at Center left of the screen
-        frame.setLocation(180, screenSize.height / 2 - frame.getHeight() / 2);
+        frame.setLocation(0, screenSize.height / 2 - frame.getHeight() / 2);
 
     }
 

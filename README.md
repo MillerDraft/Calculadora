@@ -35,3 +35,5 @@ public void handleOperations(Object source, JTextField textField) {
 -Class BackEnd in charge of add, subtract, divide and multiply.
 -Class Convert in charge of convert int in to roman numerals and vice versa.
 
+** 3/16/2024
+-A new class, ReadCal, has been implemented to calculate data from a file.

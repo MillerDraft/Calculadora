@@ -24,13 +24,14 @@ public class RomanCalculator extends Calculator{
     public void init() {
         super.init();
     }
+
     // Override Frame method to set name to the Frame
     @Override
     public void setFrame() {
         super.setFrame();
         frame.setTitle("Roman Calculator");
         // Set location at Center right of the screen
-        frame.setLocation(screenWidth - frame.getWidth() - 180, screenHeight / 2 - frame.getHeight() / 2);
+        frame.setLocation(420, screenHeight / 2 - frame.getHeight() / 2);
     }
 
     @Override
@@ -71,11 +72,12 @@ public class RomanCalculator extends Calculator{
     public void addComponentsToFrame() {
         super.addComponentsToFrame();
     }
+
+
     // Override Buttons method to create buttons with Roman #, and eliminate
     // some of the button of the parent class that Roman didn"t use in their math
     @Override
     public void setButtons() {
-        super.setButtons();
         numberButton = new JButton[14];
         functionButton = new JButton[8];
 

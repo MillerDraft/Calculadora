@@ -6,6 +6,9 @@ public class Main {
         RomanCalculator roman = new RomanCalculator();
         roman.init();
 
+        ReadCal read = new ReadCal();
+        read.init();
+
 
 
 

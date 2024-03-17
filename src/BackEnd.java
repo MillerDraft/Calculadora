@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 
 public class BackEnd{
     public double handleOperation(String operation, double num1, double num2){
@@ -18,21 +19,12 @@ public class BackEnd{
                     result = num1 / num2;
                 }
                 break;
-           /* case "²√×":
-                result = Math.sqrt(num1);
-                break;
-            case "×²":
-                result = num1 * num1;
-                break;
-            case "+/-":
-                result = num1 * (-1);
-                break;
-            case "%":
-                result = num1 / 100;
-                break;
-
-            */
         }
+
+        // Round the result to two decimal places
+        DecimalFormat df = new DecimalFormat("#.##");
+
+        result = Double.parseDouble(df.format(result));
         return result;
 
     }
